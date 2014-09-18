@@ -26,5 +26,4 @@ Then run gulp as normal:
 - concat (concatenates js)
 - watch (watches src/js/\*js and src/scss/\*scss for changes and then builds
 - uglify (compress js)
-- images (optimizes images)
 - build

@@ -5,15 +5,14 @@ var autoprefix = require('gulp-autoprefixer');
 var uglify     = require('gulp-uglify');
 var notify     = require("gulp-notify");
 var changed    = require('gulp-changed');
-var imagemin   = require('gulp-imagemin');
 
 // Compiles sass and autoprefixes
 gulp.task('sass', function () {
 	return gulp.src('assets/src/sass/main.scss')
 	.pipe(sass({
 		style: 'expanded',
-		// sourcemap: true,
-		sourcemapPath: '..src/sass'
+		sourcemap: true,
+		sourcemapPath: '../../src/sass'
 	}))
 	// Prevent sass from stopping on errors
 	.on('error', handleErrors)
@@ -54,18 +53,8 @@ gulp.task('uglify', function(){
 	.pipe(gulp.dest('assets/build/js'));
 });
 
-// Optimize images
-gulp.task('images', function() {
-  var dest = './assets/build/img';
-
-  return gulp.src('./assets/src/img/**')
-    .pipe(changed(dest)) // Ignore unchanged files
-    .pipe(imagemin()) // Optimize
-    .pipe(gulp.dest(dest));
-});
-
 // Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass', 'images'], function(){
+gulp.task('build', ['concat','sass'], function(){
 	gulp.src('assets/build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('assets/build/js'));
@@ -75,7 +64,6 @@ gulp.task('build', ['concat','sass', 'images'], function(){
 gulp.task('watch', function(){
 	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
 	gulp.watch('assets/src/js/**/*.js', ['concat']);
-	gulp.watch('assets/src/js/**/*.js', ['vendor']);
 });
 
 // Error function
