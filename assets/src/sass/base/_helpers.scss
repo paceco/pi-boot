@@ -2,12 +2,12 @@
 // Check to make sure that they don't first exist in Bootstrap
 
 %clearfix {
-	&:before, &:after {
-		content: " ";
-		display: table;
-	}
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
 
-	&:after {
-		clear: both;
-	}
+  &:after {
+    clear: both;
+  }
 }
