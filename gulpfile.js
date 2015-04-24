@@ -1,18 +1,30 @@
 var gulp       = require('gulp');
 var concat     = require('gulp-concat');
-var sass       = require('gulp-ruby-sass');
+var libsass    = require('gulp-sass');
 var autoprefix = require('gulp-autoprefixer');
 var uglify     = require('gulp-uglify');
-var notify     = require("gulp-notify");
+var notify     = require('gulp-notify');
 var changed    = require('gulp-changed');
 
-// Compiles sass and autoprefixes
+// Compile top-level sass and autoprefix that jounce
 gulp.task('sass', function () {
-	return gulp.src('assets/src/sass/main.scss')
-	.pipe(sass({
-		style: 'expanded',
-		sourcemap: true,
-		sourcemapPath: '../../src/sass'
+	return gulp.src('assets/src/sass/*.scss')
+	.pipe(libsass({
+		outputStyle: 'nested', // only supports nested or compressed
+		sourceComments: 'normal'
+	}))
+	// Prevent sass from stopping on errors
+	.on('error', handleErrors)
+	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
+	.pipe(autoprefix())
+	.pipe(gulp.dest('assets/build/css'));
+});
+
+// Compile top-level sass and compress it like whoa
+gulp.task('sass-build', function () {
+	return gulp.src('assets/src/sass/*.scss')
+	.pipe(libsass({
+		outputStyle: 'compressed', // only supports nested or compressed
 	}))
 	// Prevent sass from stopping on errors
 	.on('error', handleErrors)
@@ -46,15 +58,8 @@ gulp.task('concat', function(){
 	.pipe(gulp.dest('./assets/build/js/'));
 });
 
-// Minify js
-gulp.task('uglify', function(){
-	gulp.src('assets/build/js/*.js')
-	.pipe(uglify())
-	.pipe(gulp.dest('assets/build/js'));
-});
-
 // Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass'], function(){
+gulp.task('build', ['concat','sass-build'], function(){
 	gulp.src('assets/build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('assets/build/js'));
@@ -65,6 +70,9 @@ gulp.task('watch', function(){
 	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
 	gulp.watch('assets/src/js/**/*.js', ['concat']);
 });
+
+// Build everything and kick off the watch
+gulp.task('default', ['concat', 'sass', 'watch']);
 
 // Error function
 function handleErrors(){
