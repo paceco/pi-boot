@@ -1,48 +1,40 @@
-//
-// Jumbotron
-// --------------------------------------------------
-
-
 .jumbotron {
-  padding: $jumbotron-padding;
-  margin-bottom: $jumbotron-padding;
-  color: $jumbotron-color;
-  background-color: $jumbotron-bg;
-
-  h1,
-  .h1 {
-    color: $jumbotron-heading-color;
+  padding: 30px 15px;
+  margin-bottom: 30px;
+  color: inherit;
+  background-color: #eee;
+}
+.jumbotron h1,
+.jumbotron .h1 {
+  color: inherit;
+}
+.jumbotron p {
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: 200;
+}
+.jumbotron > hr {
+  border-top-color: #d5d5d5;
+}
+.container .jumbotron,
+.container-fluid .jumbotron {
+  border-radius: 6px;
+}
+.jumbotron .container {
+  max-width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .jumbotron {
+    padding: 48px 0;
   }
-  p {
-    margin-bottom: ($jumbotron-padding / 2);
-    font-size: $jumbotron-font-size;
-    font-weight: 200;
+  .container .jumbotron,
+  .container-fluid .jumbotron {
+    padding-right: 60px;
+    padding-left: 60px;
   }
-
-  > hr {
-    border-top-color: darken($jumbotron-bg, 10%);
-  }
-
-  .container & {
-    border-radius: $border-radius-large; // Only round corners at higher resolutions if contained in a container
-  }
-
-  .container {
-    max-width: 100%;
-  }
-
-  @media screen and (min-width: $screen-sm-min) {
-    padding-top:    ($jumbotron-padding * 1.6);
-    padding-bottom: ($jumbotron-padding * 1.6);
-
-    .container & {
-      padding-left:  ($jumbotron-padding * 2);
-      padding-right: ($jumbotron-padding * 2);
-    }
-
-    h1,
-    .h1 {
-      font-size: ($font-size-base * 4.5);
-    }
+  .jumbotron h1,
+  .jumbotron .h1 {
+    font-size: 63px;
   }
 }
+

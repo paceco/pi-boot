@@ -1,35 +1,36 @@
-//
-// Component animations
-// --------------------------------------------------
-
-// Heads up!
-//
-// We don't use the `.opacity()` mixin here since it causes a bug with text
-// fields in IE7-8. Source: https://github.com/twbs/bootstrap/pull/3552.
-
 .fade {
   opacity: 0;
-  @include transition(opacity .15s linear);
-  &.in {
-    opacity: 1;
-  }
+  -webkit-transition: opacity .15s linear;
+       -o-transition: opacity .15s linear;
+          transition: opacity .15s linear;
 }
-
+.fade.in {
+  opacity: 1;
+}
 .collapse {
   display: none;
-
-  &.in      { display: block; }
-  // [converter] extracted tr&.in to tr.collapse.in
-  // [converter] extracted tbody&.in to tbody.collapse.in
 }
-
-tr.collapse.in    { display: table-row; }
-
-tbody.collapse.in { display: table-row-group; }
-
+.collapse.in {
+  display: block;
+}
+tr.collapse.in {
+  display: table-row;
+}
+tbody.collapse.in {
+  display: table-row-group;
+}
 .collapsing {
   position: relative;
   height: 0;
   overflow: hidden;
-  @include transition(height .35s ease);
+  -webkit-transition-timing-function: ease;
+       -o-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-transition-duration: .35s;
+       -o-transition-duration: .35s;
+          transition-duration: .35s;
+  -webkit-transition-property: height, visibility;
+       -o-transition-property: height, visibility;
+          transition-property: height, visibility;
 }
+

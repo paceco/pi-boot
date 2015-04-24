@@ -1,68 +1,76 @@
-//
-// Alerts
-// --------------------------------------------------
-
-
-// Base styles
-// -------------------------
-
 .alert {
-  padding: $alert-padding;
-  margin-bottom: $line-height-computed;
+  padding: 15px;
+  margin-bottom: 20px;
   border: 1px solid transparent;
-  border-radius: $alert-border-radius;
-
-  // Headings for larger alerts
-  h4 {
-    margin-top: 0;
-    // Specified for the h4 to prevent conflicts of changing $headings-color
-    color: inherit;
-  }
-  // Provide class for links that match alerts
-  .alert-link {
-    font-weight: $alert-link-font-weight;
-  }
-
-  // Improve alignment and spacing of inner content
-  > p,
-  > ul {
-    margin-bottom: 0;
-  }
-  > p + p {
-    margin-top: 5px;
-  }
+  border-radius: 4px;
 }
-
-// Dismissible alerts
-//
-// Expand the right padding and account for the close button's positioning.
-
-.alert-dismissable, // The misspelled .alert-dismissable was deprecated in 3.2.0.
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
 .alert-dismissible {
-  padding-right: ($alert-padding + 20);
-
-  // Adjust close link position
-  .close {
-    position: relative;
-    top: -2px;
-    right: -21px;
-    color: inherit;
-  }
+  padding-right: 35px;
 }
-
-// Alternate styles
-//
-// Generate contextual modifier classes for colorizing the alert.
-
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
 .alert-success {
-  @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
 }
 .alert-info {
-  @include alert-variant($alert-info-bg, $alert-info-border, $alert-info-text);
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
 }
 .alert-warning {
-  @include alert-variant($alert-warning-bg, $alert-warning-border, $alert-warning-text);
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
 }
 .alert-danger {
-  @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+

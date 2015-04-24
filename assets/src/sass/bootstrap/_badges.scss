@@ -1,57 +1,47 @@
-//
-// Badges
-// --------------------------------------------------
-
-
-// Base class
 .badge {
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
-  font-size: $font-size-small;
-  font-weight: $badge-font-weight;
-  color: $badge-color;
-  line-height: $badge-line-height;
-  vertical-align: baseline;
-  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
   text-align: center;
-  background-color: $badge-bg;
-  border-radius: $badge-border-radius;
-
-  // Empty badges collapse automatically (not available in IE8)
-  &:empty {
-    display: none;
-  }
-
-  // Quick fix for badges in buttons
-  .btn & {
-    position: relative;
-    top: -1px;
-  }
-  .btn-xs & {
-    top: 0;
-    padding: 1px 5px;
-  }
-
-  // [converter] extracted a& to a.badge
-
-  // Account for badges in navs
-  a.list-group-item.active > &,
-  .nav-pills > .active > a > & {
-    color: $badge-active-color;
-    background-color: $badge-active-bg;
-  }
-  .nav-pills > li > a > & {
-    margin-left: 3px;
-  }
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #777;
+  border-radius: 10px;
+}
+.badge:empty {
+  display: none;
+}
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+.btn-xs .badge,
+.btn-group-xs > .btn .badge {
+  top: 0;
+  padding: 1px 5px;
+}
+a.badge:hover,
+a.badge:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.list-group-item.active > .badge,
+.nav-pills > .active > a > .badge {
+  color: #337ab7;
+  background-color: #fff;
+}
+.list-group-item > .badge {
+  float: right;
+}
+.list-group-item > .badge + .badge {
+  margin-right: 5px;
+}
+.nav-pills > li > a > .badge {
+  margin-left: 3px;
 }
 
-// Hover state, but only for links
-a.badge {
-  &:hover,
-  &:focus {
-    color: $badge-link-hover-color;
-    text-decoration: none;
-    cursor: pointer;
-  }
-}

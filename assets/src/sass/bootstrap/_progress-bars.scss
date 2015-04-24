@@ -1,105 +1,95 @@
-//
-// Progress bars
-// --------------------------------------------------
-
-
-// Bar animations
-// -------------------------
-
-// WebKit
 @-webkit-keyframes progress-bar-stripes {
-  from  { background-position: 40px 0; }
-  to    { background-position: 0 0; }
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
-
-// Spec and IE10+
+@-o-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
 @keyframes progress-bar-stripes {
-  from  { background-position: 40px 0; }
-  to    { background-position: 0 0; }
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
-
-
-
-// Bar itself
-// -------------------------
-
-// Outer container
 .progress {
+  height: 20px;
+  margin-bottom: 20px;
   overflow: hidden;
-  height: $line-height-computed;
-  margin-bottom: $line-height-computed;
-  background-color: $progress-bg;
-  border-radius: $border-radius-base;
-  @include box-shadow(inset 0 1px 2px rgba(0,0,0,.1));
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
 }
-
-// Bar of progress
 .progress-bar {
   float: left;
-  width: 0%;
+  width: 0;
   height: 100%;
-  font-size: $font-size-small;
-  line-height: $line-height-computed;
-  color: $progress-bar-color;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
   text-align: center;
-  background-color: $progress-bar-bg;
-  @include box-shadow(inset 0 -1px 0 rgba(0,0,0,.15));
-  @include transition(width .6s ease);
+  background-color: #337ab7;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+  -webkit-transition: width .6s ease;
+       -o-transition: width .6s ease;
+          transition: width .6s ease;
 }
-
-// Striped bars
-//
-// `.progress-striped .progress-bar` is deprecated as of v3.2.0 in favor of the
-// `.progress-bar-striped` class, which you just add to an existing
-// `.progress-bar`.
 .progress-striped .progress-bar,
 .progress-bar-striped {
-  @include gradient-striped();
-  background-size: 40px 40px;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  -webkit-background-size: 40px 40px;
+          background-size: 40px 40px;
 }
-
-// Call animation for the active one
-//
-// `.progress.active .progress-bar` is deprecated as of v3.2.0 in favor of the
-// `.progress-bar.active` approach.
 .progress.active .progress-bar,
 .progress-bar.active {
-  @include animation(progress-bar-stripes 2s linear infinite);
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+       -o-animation: progress-bar-stripes 2s linear infinite;
+          animation: progress-bar-stripes 2s linear infinite;
 }
-
-// Account for lower percentages
-.progress-bar {
-  &[aria-valuenow="1"],
-  &[aria-valuenow="2"] {
-    min-width: 30px;
-  }
-
-  &[aria-valuenow="0"] {
-    color: $gray-light;
-    min-width: 30px;
-    background-color: transparent;
-    background-image: none;
-    box-shadow: none;
-  }
-}
-
-
-
-// Variations
-// -------------------------
-
 .progress-bar-success {
-  @include progress-bar-variant($progress-bar-success-bg);
+  background-color: #5cb85c;
 }
-
+.progress-striped .progress-bar-success {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
 .progress-bar-info {
-  @include progress-bar-variant($progress-bar-info-bg);
+  background-color: #5bc0de;
 }
-
+.progress-striped .progress-bar-info {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
 .progress-bar-warning {
-  @include progress-bar-variant($progress-bar-warning-bg);
+  background-color: #f0ad4e;
+}
+.progress-striped .progress-bar-warning {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+.progress-bar-danger {
+  background-color: #d9534f;
+}
+.progress-striped .progress-bar-danger {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 
-.progress-bar-danger {
-  @include progress-bar-variant($progress-bar-danger-bg);
-}
