@@ -59,20 +59,29 @@ gulp.task('concat', function(){
 });
 
 // Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass-build'], function(){
+gulp.task('build', ['concat','sass-build', 'static'], function(){
 	gulp.src('assets/build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('assets/build/js'));
+});
+
+// Move static files only if there are changes
+gulp.task('static', function(){
+	return gulp.src('assets/static/**/*')
+	.pipe(changed('assets/build'))
+	// extra pipes can go here if needed, ie image compression
+	.pipe(gulp.dest('assets/build'));
 });
 
 // Watch for changes, recompile sass and js
 gulp.task('watch', function(){
 	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
 	gulp.watch('assets/src/js/**/*.js', ['concat']);
+	gulp.watch('assets/static/**/*', ['static']);
 });
 
 // Build everything and kick off the watch
-gulp.task('default', ['concat', 'sass', 'watch']);
+gulp.task('default', ['concat', 'sass', 'static', 'watch']);
 
 // Error function
 function handleErrors(){
