@@ -6,9 +6,12 @@ var uglify     = require('gulp-uglify');
 var notify     = require('gulp-notify');
 var changed    = require('gulp-changed');
 
+// Asset Handling - SCSS and JS
+// ---------------------------------------------------------------------------
+
 // Compile top-level sass and autoprefix that jounce
 gulp.task('sass', function () {
-	return gulp.src('assets/src/sass/*.scss')
+	return gulp.src('assets/source/sass/*.scss')
 	.pipe(libsass({
 		outputStyle: 'nested', // only supports nested or compressed
 		sourceComments: 'normal'
@@ -22,7 +25,7 @@ gulp.task('sass', function () {
 
 // Compile top-level sass and compress it like whoa
 gulp.task('sass-build', function () {
-	return gulp.src('assets/src/sass/*.scss')
+	return gulp.src('assets/source/sass/*.scss')
 	.pipe(libsass({
 		outputStyle: 'compressed', // only supports nested or compressed
 	}))
@@ -33,36 +36,41 @@ gulp.task('sass-build', function () {
 	.pipe(gulp.dest('assets/build/css'));
 });
 
-// Concatenates all js
-gulp.task('concat', function(){
-	gulp.src([
+// Top level task to compile both third-party and custom JS
+gulp.task('concat', ['vendor-concat', 'js-concat']);
+
+// Concatenates third-party js
+gulp.task('vendor-concat', function(){
+	return gulp.src([
 		// Load bootstrap js in order
-		'./assets/src/js/plugins/bootstrap/transition.js',
-		'./assets/src/js/plugins/bootstrap/alert.js',
-		'./assets/src/js/plugins/bootstrap/button.js',
-		'./assets/src/js/plugins/bootstrap/carousel.js',
-		'./assets/src/js/plugins/bootstrap/collapse.js',
-		'./assets/src/js/plugins/bootstrap/dropdown.js',
-		'./assets/src/js/plugins/bootstrap/modal.js',
-		'./assets/src/js/plugins/bootstrap/tooltip.js',
-		'./assets/src/js/plugins/bootstrap/popover.js',
-		'./assets/src/js/plugins/bootstrap/scrollspy.js',
-		'./assets/src/js/plugins/bootstrap/tab.js',
-		'./assets/src/js/plugins/bootstrap/affix.js',
-		// Any other plugins?
-		'./assets/src/js/plugins/*.js',
-		// Load custom js
-		'./assets/src/js/main.js'
+		'./assets/source/js/vendor/bootstrap/transition.js',
+		'./assets/source/js/vendor/bootstrap/alert.js',
+		'./assets/source/js/vendor/bootstrap/button.js',
+		'./assets/source/js/vendor/bootstrap/carousel.js',
+		'./assets/source/js/vendor/bootstrap/collapse.js',
+		'./assets/source/js/vendor/bootstrap/dropdown.js',
+		'./assets/source/js/vendor/bootstrap/modal.js',
+		'./assets/source/js/vendor/bootstrap/tooltip.js',
+		'./assets/source/js/vendor/bootstrap/popover.js',
+		'./assets/source/js/vendor/bootstrap/scrollspy.js',
+		'./assets/source/js/vendor/bootstrap/tab.js',
+		'./assets/source/js/vendor/bootstrap/affix.js',
+		// Any other plugins? Load here as necessary
+		'./assets/source/js/vendor/*.js',
 	])
-	.pipe(concat('all.js'))
+	.pipe(concat('vendor.js'))
 	.pipe(gulp.dest('./assets/build/js/'));
 });
 
-// Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass-build', 'static'], function(){
-	gulp.src('assets/build/js/*.js')
-	.pipe(uglify())
-	.pipe(gulp.dest('assets/build/js'));
+// Concatenates all custom js
+gulp.task('js-concat', function(){
+    return gulp.src([
+        './assets/source/js/main.js',
+		// Any others? Load here as necessary
+        // './assets/source/js/*.js',
+    ])
+    .pipe(concat('custom.js'))
+    .pipe(gulp.dest('./assets/build/js'));    
 });
 
 // Move static files only if there are changes
@@ -73,6 +81,17 @@ gulp.task('static', function(){
 	.pipe(gulp.dest('assets/build'));
 });
 
+
+// Watch and Build Functions
+// ---------------------------------------------------------------------------
+
+// Compiles compressed version of sass, then builds and minifies all js
+gulp.task('build', ['concat','sass-build', 'static'], function(){
+	return gulp.src('assets/build/js/*.js')
+	.pipe(uglify())
+	.pipe(gulp.dest('assets/build/js'));
+});
+
 // Watch for changes, recompile sass and js
 gulp.task('watch', function(){
 	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
@@ -80,10 +99,16 @@ gulp.task('watch', function(){
 	gulp.watch('assets/static/**/*', ['static']);
 });
 
+// Default Task
+// Build everything and kick off the watch
+// ---------------------------------------------------------------------------
+
 // Build everything and kick off the watch
 gulp.task('default', ['concat', 'sass', 'static', 'watch']);
 
-// Error function
+// Error Handling
+// ---------------------------------------------------------------------------
+
 function handleErrors(){
   var args = Array.prototype.slice.call(arguments);
 
