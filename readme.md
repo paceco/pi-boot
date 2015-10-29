@@ -2,6 +2,11 @@
 
 Front-end framework using Gulp to tie everything together.
 
+### Dependencies:
+
+- Node 4.2.1
+
+**(For Node 0.12 and lower, replace the `package.json` with [the older version](https://gist.github.com/nathanlong/1bcd85a4511c25d49f15) to ensure compatibility.)**
 
 ### To install:
 
