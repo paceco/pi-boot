@@ -42,21 +42,27 @@ gulp.task('concat', ['vendor-concat', 'js-concat']);
 // Concatenates third-party js
 gulp.task('vendor-concat', function(){
 	return gulp.src([
+
 		// Load bootstrap js in order
-		'./assets/source/js/vendor/bootstrap/transition.js',
-		'./assets/source/js/vendor/bootstrap/alert.js',
-		'./assets/source/js/vendor/bootstrap/button.js',
-		'./assets/source/js/vendor/bootstrap/carousel.js',
-		'./assets/source/js/vendor/bootstrap/collapse.js',
-		'./assets/source/js/vendor/bootstrap/dropdown.js',
-		'./assets/source/js/vendor/bootstrap/modal.js',
-		'./assets/source/js/vendor/bootstrap/tooltip.js',
-		'./assets/source/js/vendor/bootstrap/popover.js',
-		'./assets/source/js/vendor/bootstrap/scrollspy.js',
-		'./assets/source/js/vendor/bootstrap/tab.js',
-		'./assets/source/js/vendor/bootstrap/affix.js',
-		// Any other plugins? Load here as necessary
-		'./assets/source/js/vendor/*.js',
+		'./assets/source/vendor/bootstrap/transition.js',
+		'./assets/source/vendor/bootstrap/alert.js',
+		'./assets/source/vendor/bootstrap/button.js',
+		'./assets/source/vendor/bootstrap/carousel.js',
+		'./assets/source/vendor/bootstrap/collapse.js',
+		'./assets/source/vendor/bootstrap/dropdown.js',
+		'./assets/source/vendor/bootstrap/modal.js',
+		'./assets/source/vendor/bootstrap/tooltip.js',
+		'./assets/source/vendor/bootstrap/popover.js',
+		'./assets/source/vendor/bootstrap/scrollspy.js',
+		'./assets/source/vendor/bootstrap/tab.js',
+		'./assets/source/vendor/bootstrap/affix.js',
+
+		// Other plugins. Load more here as necessary
+		// './assets/source/vendor/flickity.pkgd.min.js',
+		// './assets/source/vendor/packery.pkgd.min.js',
+
+		// Turn on wildcard selector? Grabs any js file in source/vender
+		// './assets/source/vendor/*.js',
 	])
 	.pipe(concat('vendor.js'))
 	.pipe(gulp.dest('./assets/build/js/'));
@@ -64,21 +70,35 @@ gulp.task('vendor-concat', function(){
 
 // Concatenates all custom js
 gulp.task('js-concat', function(){
-    return gulp.src([
-        './assets/source/js/main.js',
+	return gulp.src([
+		'./assets/source/js/main.js',
 		// Any others? Load here as necessary
-        // './assets/source/js/*.js',
-    ])
-    .pipe(concat('custom.js'))
-    .pipe(gulp.dest('./assets/build/js'));    
+		// './assets/source/js/*.js',
+	])
+	.pipe(concat('custom.js'))
+	.pipe(gulp.dest('./assets/build/js'));    
 });
 
+// Static Assets
+// ---------------------------------------------------------------------------
+
 // Move static files only if there are changes
-gulp.task('static', function(){
+gulp.task('static', ['vendor-fonts'], function(){
 	return gulp.src('assets/static/**/*')
 	.pipe(changed('assets/build'))
 	// extra pipes can go here if needed, ie image compression
 	.pipe(gulp.dest('assets/build'));
+});
+
+// Move fonts not in static folder
+gulp.task('vendor-fonts', function(){
+	return gulp.src([
+		'./assets/source/vendor/bootstrap/fonts/*',
+		// Place any other vendor fonts here:
+		// './assets/source/vendor/...',
+	])
+	.pipe(changed('assets/build/fonts'))
+	.pipe(gulp.dest('assets/build/fonts'));
 });
 
 
@@ -94,8 +114,8 @@ gulp.task('build', ['concat','sass-build', 'static'], function(){
 
 // Watch for changes, recompile sass and js
 gulp.task('watch', function(){
-	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
-	gulp.watch('assets/src/js/**/*.js', ['concat']);
+	gulp.watch('assets/source/sass/**/*.scss', ['sass']);
+	gulp.watch('assets/source/js/**/*.js', ['concat']);
 	gulp.watch('assets/static/**/*', ['static']);
 });
 
@@ -110,14 +130,14 @@ gulp.task('default', ['concat', 'sass', 'static', 'watch']);
 // ---------------------------------------------------------------------------
 
 function handleErrors(){
-  var args = Array.prototype.slice.call(arguments);
+	var args = Array.prototype.slice.call(arguments);
 
-  // Send error to notification center with gulp-notify
-  notify.onError({
-    title: "Compile Error",
-    message: "<%= error.message %>"
-  }).apply(this, args);
+	// Send error to notification center with gulp-notify
+	notify.onError({
+		title: "Compile Error",
+		message: "<%= error.message %>"
+	}).apply(this, args);
 
-  // Keep gulp from hanging on this task
-  this.emit('end');
+	// Keep gulp from hanging on this task
+	this.emit('end');
 }
