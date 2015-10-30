@@ -58,8 +58,8 @@ gulp.task('vendor-concat', function(){
 		'./assets/source/vendor/bootstrap/affix.js',
 
 		// Other plugins. Load more here as necessary
-		// './assets/source/vendor/flickity.pkgd.min.js',
-		// './assets/source/vendor/packery.pkgd.min.js',
+		'./assets/source/vendor/flickity/flickity.pkgd.min.js',
+		'./assets/source/vendor/packery.pkgd.min.js',
 
 		// Turn on wildcard selector? Grabs any js file in source/vender
 		// './assets/source/vendor/*.js',
