@@ -44,18 +44,18 @@ gulp.task('vendor-concat', function(){
 	return gulp.src([
 
 		// Load bootstrap js in order
-		'./assets/source/vendor/bootstrap/transition.js',
-		'./assets/source/vendor/bootstrap/alert.js',
-		'./assets/source/vendor/bootstrap/button.js',
-		'./assets/source/vendor/bootstrap/carousel.js',
-		'./assets/source/vendor/bootstrap/collapse.js',
-		'./assets/source/vendor/bootstrap/dropdown.js',
-		'./assets/source/vendor/bootstrap/modal.js',
-		'./assets/source/vendor/bootstrap/tooltip.js',
-		'./assets/source/vendor/bootstrap/popover.js',
-		'./assets/source/vendor/bootstrap/scrollspy.js',
-		'./assets/source/vendor/bootstrap/tab.js',
-		'./assets/source/vendor/bootstrap/affix.js',
+		'./assets/source/vendor/bootstrap/js/transition.js',
+		'./assets/source/vendor/bootstrap/js/alert.js',
+		'./assets/source/vendor/bootstrap/js/button.js',
+		'./assets/source/vendor/bootstrap/js/carousel.js',
+		'./assets/source/vendor/bootstrap/js/collapse.js',
+		'./assets/source/vendor/bootstrap/js/dropdown.js',
+		'./assets/source/vendor/bootstrap/js/modal.js',
+		'./assets/source/vendor/bootstrap/js/tooltip.js',
+		'./assets/source/vendor/bootstrap/js/popover.js',
+		'./assets/source/vendor/bootstrap/js/scrollspy.js',
+		'./assets/source/vendor/bootstrap/js/tab.js',
+		'./assets/source/vendor/bootstrap/js/affix.js',
 
 		// Other plugins. Load more here as necessary
 		'./assets/source/vendor/flickity/flickity.pkgd.min.js',
